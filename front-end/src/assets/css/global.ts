@@ -37,6 +37,11 @@ color: #fff;
     margin: 0 auto;
 }
 
+.spline-watermark {
+  display: none !important;
+  position: initial !important;
+}
+
 `;
 
 export default GlobalStyle;

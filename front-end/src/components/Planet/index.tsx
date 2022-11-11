@@ -1,16 +1,13 @@
 import { ContainerIframe } from './style';
+import Spline from "@splinetool/react-spline";
 
 function Planet() {
     return (
-        <div className="App">
-            <ContainerIframe
-                src='https://my.spline.design/untitled-85d15b4e8ad67989394d1aaaf5627fe8/' 
-                frameBorder='0' 
-                width='100%' 
-                height='100%'
-            >
+        <>
+            <ContainerIframe>
+                <Spline scene="https://draft.spline.design/XDvraqdt3D1zBQXl/scene.splinecode" />
             </ContainerIframe>
-        </div>
+        </>
     );
 }
 

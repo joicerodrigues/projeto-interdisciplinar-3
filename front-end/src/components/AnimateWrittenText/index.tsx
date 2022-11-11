@@ -1,19 +1,24 @@
 import { TypeAnimation } from "react-type-animation";
+import { ContentText } from "./style";
 
 interface AnimateWrittenTextProps {
-  text: string;
+  text: Array<string | number>;
 }
 
-function AnimateWrittenText() {
+function AnimateWrittenText({ text }: AnimateWrittenTextProps) {
   return (
-    <>
+    <ContentText>
       <TypeAnimation
-        sequence={['Type faster or slower by setting speed.', 1000, '']}
-        speed={75}
+        sequence={text}
+        speed={40}
         wrapper="h2"
         repeat={Infinity}
+        style={{
+          color: "#fff",
+          fontSize: "3rem",
+        }}
       />
-    </>
+    </ContentText>
   );
 }
 
