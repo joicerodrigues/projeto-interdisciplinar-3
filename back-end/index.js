@@ -1,45 +1,77 @@
-const express = require('express'); // importando express
-const server = express(); // variavel chamada server que chama a função express
-server.subscribe(express.json()); // faz com que o express entenda JSON
-const teste = [] // array que irá armazenar infos
+const express = require('express');
 
-//listar via get
-server.get('/teste', (req, res) => {
-    return res.json(teste);
-})
+const server = express();
 
-//armazenar via post
-server.post('/teste', (req, res) => { //rota /teste com
-    //console.log('teste');
-    const{name} = req.body; // buscar nome informado dentro do body da requisição
-    teste.push(name);
-    return res.json( teste ); //return a info da val teste
-    })
+server.use(express.json()); // faz com que o express entenda JSON
 
-//listar users
-server.get('/teste/:index', (req, res) => {
-    return res.json(req.user);
-})
+// Query params = ?teste=1
+// Route params = /produtos/1
+// Request body = { "name": "xx", "price": "xx"}
 
-//buscar o name informado dentro do body da requisição
-server.post('/teste', (req, res) =>{
-    const {name} = req.body
-    teste.push(name);
-    return res.json(teste);
-})
-server.listen(3000);
+// CRUD - Create, Read, Update, Delete
 
-server.put('/teste/:index', (req, res) =>{
-    const {index} = req.params; // recupera o index com os dados
-    const {name} = req.body;
-    teste[index] = name; // sobrepore o index obtido na roda de acordo com o novo valor
-    return res.json(teste);
-})
+const produtos = ['cobre', 'prata', 'latão', 'metal'];
 
-server.delete('/teste/:index', (req, res) =>{
-    const{index} = req.params;
-    teste.splice(index, 1);
-    return res.send();
+server.use((req, res, next) => { // server.use cria o middleware global
+  console.time('Request'); // marca o início da requisição
+  console.log(`Método: ${req.method}; URL: ${req.url}; `); 
+  // retorna qual o método e url foi chamada
+
+  next(); // função que chama as próximas ações 
+
+  console.log('Finalizou'); // será chamado após a requisição ser concluída
+
+  console.timeEnd('Request'); // marca o fim da requisição
 });
 
- //   server.listen(3000); // faz com que o servidor seja execujado nessa porta especifica
+function checkProdutoExists(req, res, next) {
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'produto name is required' });
+    // middleware local que irá checar se a propriedade name foi infomada, 
+    // caso negativo, irá retornar um erro 400 - BAD REQUEST 
+  }
+  return next(); // se o nome for informado corretamente, a função next() chama as próximas ações
+} 
+  
+function checkProdutoInArray(req, res, next) {
+  const produto = produtos[req.params.index];
+  if (!produto) {
+    return res.status(400).json({ error: 'produtos does not exists' });
+  } // checa se o produtos existe no array, caso negativo informa que o index não existe no array
+
+  req.produto = produto;
+
+  return next();
+}
+
+server.get('/produtos', (req, res) => {
+  return res.json(produtos);
+}) // rota para listar todos os produtoss
+
+server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
+  return res.json(req.produtos);
+})
+
+server.post('/produtos', checkProdutoExists, (req, res) => {
+  const { name } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
+  produtos.push(name);
+  return res.json(produtos); // retorna a informação da variavel produtos
+})
+
+server.put('/produtos/:index', checkProdutoInArray, checkProdutoExists, (req, res) => {
+  const { index } = req.params; // recupera o index com os dados
+  const { name } = req.body;
+  produtos[index] = name; // sobrepõe/edita o index obtido na rota de acordo com o novo valor
+  return res.json(produtos);
+}); // retorna novamente os produtos atualizados após o update
+
+server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
+  const { index } = req.params; // recupera o index com os dados
+
+  produtos.splice(index, 1); // percorre o vetor até o index selecionado e deleta uma posição no array
+
+  return res.send();
+}); // retorna os dados após exclusão
+
+
+server.listen(3000);
