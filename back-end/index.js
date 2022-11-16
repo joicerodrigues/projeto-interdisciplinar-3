@@ -10,7 +10,7 @@ server.use(express.json()); // faz com que o express entenda JSON
 
 // CRUD - Create, Read, Update, Delete
 
-const produtos = ['cobre', 'prata', 'latão', 'metal'];
+const produtos = ['nome:', 'cobre', 'preço', 'xx,xx', 'estoque:','1t'];
 
 server.use((req, res, next) => { // server.use cria o middleware global
   console.time('Request'); // marca o início da requisição
