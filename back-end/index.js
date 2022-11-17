@@ -1,3 +1,5 @@
+import { Produto } from './produto';
+
 const express = require('express');
 
 const server = express();
@@ -10,7 +12,7 @@ server.use(express.json()); // faz com que o express entenda JSON
 
 // CRUD - Create, Read, Update, Delete
 
-const produtos = ['nome:', 'cobre', 'preço', 'xx,xx', 'estoque:','1t'];
+const produtos = new Produto();
 
 server.use((req, res, next) => { // server.use cria o middleware global
   console.time('Request'); // marca o início da requisição
@@ -19,13 +21,13 @@ server.use((req, res, next) => { // server.use cria o middleware global
 
   next(); // função que chama as próximas ações 
 
-  console.log('Finalizou'); // será chamado após a requisição ser concluída
+ // console.log('Finalizou'); // será chamado após a requisição ser concluída
 
-  console.timeEnd('Request'); // marca o fim da requisição
+ // console.timeEnd('Request'); // marca o fim da requisição
 });
 
 function checkProdutoExists(req, res, next) {
-  if (!req.body.name) {
+  if (!req.body.Produto) {
     return res.status(400).json({ error: 'produto name is required' });
     // middleware local que irá checar se a propriedade name foi infomada, 
     // caso negativo, irá retornar um erro 400 - BAD REQUEST 
@@ -53,15 +55,15 @@ server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
 })
 
 server.post('/produtos', checkProdutoExists, (req, res) => {
-  const { name } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
-  produtos.push(name);
+  const { Produto } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
+  produtos.push(Produto);
   return res.json(produtos); // retorna a informação da variavel produtos
 })
 
 server.put('/produtos/:index', checkProdutoInArray, checkProdutoExists, (req, res) => {
   const { index } = req.params; // recupera o index com os dados
-  const { name } = req.body;
-  produtos[index] = name; // sobrepõe/edita o index obtido na rota de acordo com o novo valor
+  const { Produto } = req.body;
+  produtos[index] = Produto; // sobrepõe/edita o index obtido na rota de acordo com o novo valor
   return res.json(produtos);
 }); // retorna novamente os produtos atualizados após o update
 
