@@ -1,8 +1,8 @@
 const mariadb = required('mariadb');
 const pool = mariadb.createPool({
     host: 'mydb.com',
-    user: 'root',
-    password: '',
+    user: $bduser,
+    password: $bdpassword,
     connectionLimit: 5
 });
 
