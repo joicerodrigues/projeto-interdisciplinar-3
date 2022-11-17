@@ -74,4 +74,6 @@ server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
 }); // retorna os dados após exclusão
 
 
-server.listen(3000);
+server.listen(3000, function(){
+  console.log("Servidor Rodando na porta 3000")
+});
