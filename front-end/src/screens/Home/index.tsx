@@ -1,10 +1,10 @@
 import React from "react";
 import Lottie from "lottie-react";
 import ScrollAnimate from "../../assets/lotties/lf30_editor_hj0yzmr0.json";
-import { Container, Wrapper, ContentTitle, ContentPlanet, LottieScroll, ContentText } from './style';
+import { ContainerHome, Wrapper, ContentTitle, ContentPlanet, LottieScroll, ContentText } from './style';
 import Planet from "../../components/Planet";
 import AnimateWrittenText from "../../components/AnimateWrittenText";
-import { Animator, ScrollContainer, ScrollPage, batch, FadeIn, StickyIn, ZoomIn } from "react-scroll-motion";
+import { Animator, ScrollContainer, ScrollPage, batch, FadeIn, Fade, Move, Sticky, StickyIn, ZoomIn } from "react-scroll-motion";
 import Header from "../../components/Header";
 
 function Home() {
@@ -14,7 +14,7 @@ function Home() {
         'Para nós é apenas o começo!',
         1000,
     ]
-    const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
+    const FadeUp = batch(Fade(), Move(), Sticky());
     const style = {
         height: 70,
     };
@@ -23,8 +23,7 @@ function Home() {
         <>
             <ScrollContainer>
                 <Header />
-                <Container>
-
+                <ContainerHome>
                     <Wrapper>
                         <ContentTitle>
                             <AnimateWrittenText
@@ -47,20 +46,36 @@ function Home() {
                             </p>
                         </ContentText>
                     </Wrapper>
-
-
                     <ContentPlanet>
                         <Planet />
                     </ContentPlanet>
-
-
                     <LottieScroll>
                         <Lottie
                             animationData={ScrollAnimate}
                             style={style}
                         />
                     </LottieScroll>
-                </Container>
+                </ContainerHome>
+
+                <ScrollPage page={1}>
+                    <Animator animation={FadeUp}>
+                        <div style={{ height: 1000 }}>
+                            <p>
+                                Temos a missão de gerar recursos sustentáveis
+                                e proporcionar aos nossos clientes, soluções de descarte
+                                de resíduos eletrônicos de forma eficaz e segura. Com ética,
+                                trabalho em equipe, responsabilidade social e
+                                respeito ao meio ambiente.
+                            </p>
+                        </div>
+                    </Animator>
+                </ScrollPage>
+
+                <ScrollPage page={2}>
+                    <Animator animation={FadeUp}>
+                        <div style={{ height: 1000 }} />
+                    </Animator>
+                </ScrollPage>
             </ScrollContainer>
         </>
     );

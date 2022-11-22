@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+import convertToRem from "../../utils/convertToRem";
+import img from "../img/2806681.jpg";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -16,7 +18,9 @@ body {
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale;
-    background: #1c1c1c;
+    background-image: url(${img});
+    background-repeat: no-repeat;
+    background-size: auto ${convertToRem(1500)};
 }
 
 button {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import convertToRem from "../../utils/convertToRem";
 
-export const Container = styled.div`
+export const ContainerHome = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,12 +37,13 @@ export const ContentText = styled.div` {
   flex-direction: column;
   width: 70%;
   font-size: ${convertToRem(18)};
-  color: #CECECE;
+  color: #F1F1F1;
   height: ${convertToRem(130)};
   padding-top: ${convertToRem(110)};
 
   p {
     padding: ${convertToRem(10)} 0;
+    font-weight: 100;
   }
 `;
 

@@ -5,7 +5,7 @@ function Planet() {
     return (
         <>
             <ContainerIframe>
-                <Spline scene="https://draft.spline.design/XDvraqdt3D1zBQXl/scene.splinecode" />
+                <Spline scene="https://draft.spline.design/tepvumJNnBXvmga6/scene.splinecode" />
             </ContainerIframe>
         </>
     );
