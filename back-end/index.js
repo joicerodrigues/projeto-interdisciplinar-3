@@ -1,18 +1,16 @@
-import { Produto } from './produto';
+import {product} from './classProdutc.js';
 
-const express = require('express');
-
-const server = express();
-
+//const express = require('express');
+import express from 'express';
+const server = express()
 server.use(express.json()); // faz com que o express entenda JSON
 
 // Query params = ?teste=1
 // Route params = /produtos/1
 // Request body = { "name": "xx", "price": "xx"}
-
 // CRUD - Create, Read, Update, Delete
 
-const produtos = new Produto();
+export const produtos = new product();
 
 server.use((req, res, next) => { // server.use cria o middleware global
   console.time('Request'); // marca o início da requisição
@@ -76,4 +74,4 @@ server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
 }); // retorna os dados após exclusão
 
 
-server.listen(3000);
+server.listen(8080);

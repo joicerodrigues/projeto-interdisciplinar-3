@@ -1,8 +1,9 @@
 const mariadb = required('mariadb');
 const pool = mariadb.createPool({
-    host: 'mydb.com',
+    host: 'localhost',
     user: $bduser,
     password: $bdpassword,
+    database: 'sucatia',
     connectionLimit: 5
 });
 
