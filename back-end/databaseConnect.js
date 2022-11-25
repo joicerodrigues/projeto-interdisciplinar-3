@@ -1,24 +1,17 @@
-const mariadb = required('mariadb');
-const pool = mariadb.createPool({
-    host: 'localhost',
-    user: $bduser,
-    password: $bdpassword,
+// Use the MariaDB Node.js Connector
+import { createPool } from 'mariadb';
+ 
+// Create a connection pool
+var pool = 
+  createPool({
+    host: '127.0.0.1',
+    user: 'root',
+    password: '',
     database: 'sucatia',
     connectionLimit: 5
+  });
+ 
+// Expose a method to establish connection with MariaDB SkySQL
+export default Object.freeze({
+  pool: pool
 });
-
-pool.getConnection()
-.then(conn => {
-    conn.query("Selec 1 as val")
-    .then((rows) => {
-        console.log(rows);
-        return conn.query("Insert INTO tableName value (valueOne, valueTwo)", [1, "teste"]);
-    })
-    .then((res) => {
-        console.log(res);
-        conn.end();
-    })
-    .catch(err => {
-        console.log
-    })
-})

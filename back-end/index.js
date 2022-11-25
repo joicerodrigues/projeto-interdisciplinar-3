@@ -1,8 +1,10 @@
-import {product} from './classProdutc.js';
-
-//const express = require('express');
+import {product} from './classProduct.js';
 import express from 'express';
-const server = express()
+import db from './databaseConnect.js';
+
+
+var router = express.Router();
+const server = express();
 server.use(express.json()); // faz com que o express entenda JSON
 
 // Query params = ?teste=1
@@ -44,9 +46,16 @@ function checkProdutoInArray(req, res, next) {
   return next();
 }
 
-server.get('/produtos', (req, res) => {
-  return res.json(produtos);
-}) // rota para listar todos os produtoss
+// GET
+server.get('/produtos', async (req, res) => {
+  try {
+      const result = await db.pool.query("select * from produto");
+      res.send(result);
+  } catch (err) {
+      throw err;
+  }
+});
+
 
 server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
   return res.json(req.produtos);
