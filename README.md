@@ -68,13 +68,13 @@ Temos a missão de gerar recursos sustentáveis e proporcionar aos nossos client
                     <sub> <b>Klayvert Ryan</b> </sub> 
                 </a>
             </td>
-           <!-- <td align="center">
-                <a href="https://github.com/araujomarcel">
-                    <img src="https://avatars.githubusercontent.com/u/89671847?v=4" width="100px;" alt="Foto do Marcel" />
+            <td align="center">
+                <a href="https://github.com/Diego-Eduardo-Wiltler">
+                    <img src="https://avatars.githubusercontent.com/u/90121713?v=4" width="100px;" alt="Foto do Diego" />
                     <br>
-                    <sub> <b>Marcel</b> </sub> 
+                    <sub> <b>Diego Eduardo</b> </sub> 
                 </a>
-            </td>-->
+            </td>
         </tr>
     </table>
 </div>
