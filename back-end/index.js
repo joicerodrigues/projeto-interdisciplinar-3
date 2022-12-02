@@ -83,7 +83,8 @@ server.post('/produtos', async (req, res) => {
 
 server.put('/produtos/:id_produto', async (req, res) => {
   let produto = req.body;
-  let headerProduto = req.header; 
+  let headerProduto = req.params.id_produto;
+  
   console.log(req.header.name);
   const result = await db.pool.query("update produto set nome=?, valor=?, peso=?, imagem=?, descricao=? where id_produto = ?", [produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao, headerProduto]);
   res.send(JSONBig.parse(JSONBig.stringify(result)));
