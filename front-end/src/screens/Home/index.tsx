@@ -1,10 +1,9 @@
-import React from "react";
 import Lottie from "lottie-react";
 import ScrollAnimate from "../../assets/lotties/lf30_editor_hj0yzmr0.json";
 import { ContainerHome, Wrapper, ContentTitle, ContentPlanet, LottieScroll, ContentText } from './style';
 import Planet from "../../components/Planet";
 import AnimateWrittenText from "../../components/AnimateWrittenText";
-import { Animator, ScrollContainer, ScrollPage, batch, FadeIn, Fade, Move, Sticky, StickyIn, ZoomIn } from "react-scroll-motion";
+import { Animator, ScrollContainer, ScrollPage, batch, Fade, Move, Sticky } from "react-scroll-motion";
 import Header from "../../components/Header";
 
 function Home() {
