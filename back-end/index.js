@@ -1,6 +1,7 @@
 import {product} from './classProduct.js';
 import express from 'express';
 import db from './databaseConnect.js';
+import JSONBig from 'json-bigint';
 
 
 var router = express.Router();
@@ -16,7 +17,7 @@ export const produtos = new product();
 
 server.use((req, res, next) => { // server.use cria o middleware global
   console.time('Request'); // marca o início da requisição
-  console.log(`Método: ${req.method}; URL: ${req.url}; `); 
+  console.log(`Método: ${req.method}; URL: ${req.url}; `);
   // retorna qual o método e url foi chamada
 
   next(); // função que chama as próximas ações 
@@ -48,30 +49,48 @@ function checkProdutoInArray(req, res, next) {
 
 // GET
 server.get('/produtos', async (req, res) => {
-  try {
-      const result = await db.pool.query("select * from produto");
-      res.send(result);
-  } catch (err) {
-      throw err;
-  }
-});
+  const result = await db.pool.query("select * from produto");
+		res.send(result);
+    } );
+    
 
 
 server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
   return res.json(req.produtos);
-})
+});
+ 
+server.post('/produtos', async (req, res) => {
+  let produto = req.body; 
+  console.log(typeof produto.id_produto);
+  //const result = await db.pool.query("insert into produto values(?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao])
+  const result = await db.pool.query("insert into produto (id_produto, id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?, ?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
+ // const { Produto } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
+ // produtos.push(Produto);
+ // return res.json(produtos); // retorna a informação da variavel produtos
+});
 
-server.post('/produtos', checkProdutoExists, (req, res) => {
-  const { Produto } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
-  produtos.push(Produto);
-  return res.json(produtos); // retorna a informação da variavel produtos
-})
+//app.post('/tasks', async (req, res) => {
+/*  let task = req.body;
+  try {
+      const result = await db.pool.query("insert into tasks (description) values (?)", [task.description]);
+      res.send(result);
+  } catch (err) {
+      throw err;
+  }
+});*/
 
-server.put('/produtos/:index', checkProdutoInArray, checkProdutoExists, (req, res) => {
-  const { index } = req.params; // recupera o index com os dados
+
+server.put('/produtos/:id_produto', async (req, res) => {
+  let produto = req.body;
+  let headerProduto = req.header; 
+  console.log(req.header.name);
+  const result = await db.pool.query("update produto set nome=?, valor=?, peso=?, imagem=?, descricao=? where id_produto = ?", [produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao, headerProduto]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
+ /* const { index } = req.params; // recupera o index com os dados
   const { Produto } = req.body;
   produtos[index] = Produto; // sobrepõe/edita o index obtido na rota de acordo com o novo valor
-  return res.json(produtos);
+  return res.json(produtos);*/
 }); // retorna novamente os produtos atualizados após o update
 
 server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
@@ -83,4 +102,54 @@ server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
 }); // retorna os dados após exclusão
 
 
-server.listen(8080);
+// rotas login
+server.get('/login', async (req, res) => {
+	try {
+		const result = await db.pool.query("select * from usuario");
+		res.send(result);
+	} catch (err) {
+		throw err;
+	}
+  });
+
+  server.post('/tchek', function(req, res) {
+
+    let email = req.body.email;
+    let password = req.body.password;
+    
+    if (email && password) {
+      
+      db.query('SELECT FROM usuario WHERE email = ? AND senha = ?', [email, password], function(error, results, fields) {
+  
+        if (error) throw error;
+    
+        if (results.length > 0) {
+          
+          req.session.loggedin = true;
+          req.session.email = email;
+          
+          res.redirect('/home');
+        } else {
+          res.send('Incorrect email and/or Password!');
+        }			
+        res.end();
+      });
+    } else {
+      res.send('Please enter email and Password!');
+      res.end();
+    }
+  });
+  
+  server.get('/home', function(req, res) {
+    
+    if (req.session.loggedin) {
+      
+      res.send('Welcome back, ' + req.session.email + '!');
+    } else {
+      
+      res.send('Please login to view this page!');
+    }
+    res.end();
+  });
+
+server.listen(3000);

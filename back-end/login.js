@@ -1,62 +1,65 @@
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
-const app = express();
+import express from 'express';
+import session from 'express-session';
+import path from 'path';
 import db from './databaseConnect.js';
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
+var router = express.Router();
+const server = express();
 
-app.get('/', function(request, response) {
-	
-	response.sendFile(path.join(__dirname + './login'));
-});
+//utilizando sessão
 
 
-app.post('/auth', function(request, response) {
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+//server.use(express.static(path.join(__dirname, 'static')));  
 
-	let email = request.body.email;
-	let password = request.body.password;
+server.get('/login', async (req, res) => {
+	try {
+		const result = await db.pool.query("select * from usuario");
+		res.send(result);
+	} catch (err) {
+		throw err;
+	}
+  });
+
+server.post('/00', function(req, res) {
+
+	let email = req.body.email;
+	let password = req.body.password;
 	
 	if (email && password) {
 		
-		db.query('SELECT FROM login WHERE email = ? AND senha = ?', [email, password], function(error, results, fields) {
+		db.query('SELECT FROM usuario WHERE email = ? AND senha = ?', [email, password], function(error, results, fields) {
 
 			if (error) throw error;
 	
 			if (results.length > 0) {
 				
-				request.session.loggedin = true;
-				request.session.email = email;
+				req.session.loggedin = true;
+				req.session.email = email;
 				
-				response.redirect('/home');
+				res.redirect('/home');
 			} else {
-				response.send('Incorrect email and/or Password!');
+				res.send('Incorrect email and/or Password!');
 			}			
-			response.end();
+			res.end();
 		});
 	} else {
-		response.send('Please enter email and Password!');
-		response.end();
+		res.send('Please enter email and Password!');
+		res.end();
 	}
 });
 
-app.get('/home', function(request, response) {
+server.get('/home', function(req, res) {
 	
-	if (request.session.loggedin) {
+	if (req.session.loggedin) {
 		
-		response.send('Welcome back, ' + request.session.email + '!');
+		res.send('Welcome back, ' + req.session.email + '!');
 	} else {
 		
-		response.send('Please login to view this page!');
+		res.send('Please login to view this page!');
 	}
-	response.end();
+	res.end();
 });
 
-app.listen(3000);
+server.listen(1000);
