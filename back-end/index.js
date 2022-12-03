@@ -65,6 +65,13 @@ server.put('/vendedores/:id_vendedor', async (req, res) => {
   res.send(JSONBig.parse(JSONBig.stringify(result)));
 });
 
+server.delete('/vendedores/:id_vendedor', async (req, res) => {
+  let headerVendedor = req.params.id_vendedor; 
+  
+  const result = await db.pool.query("delete from vendedor set id_vendedor=? where id_vendedor = ?", [vendedor.id_vendedor, headerVendedor]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
+}); // retorna os dados após exclusão
+
 // rotas produtos
 server.get('/produtos', async (req, res) => {
   const result = await db.pool.query("select * from produto");
