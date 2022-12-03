@@ -51,10 +51,18 @@ server.get('/vendedores', async (req, res) =>{
 });
 
 server.post('/vendedores', async (req, res) => {
-  let produto = req.body;
+  let vendedor = req.body;
 
   const result = await db.pool.query("insert into vendedor (id_usuario, nome, cnpj, nome_fantasia, email, contato, numero, rua, cep, bairro, tipo, cpf)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [vendedor.id_usuario, vendedor.nome, vendedor.cnpj, vendedor.nome_fantasia, vendedor.email, vendedor.contato, vendedor.numero, vendedor.rua, vendedor.cep, vendedor.bairro, vendedor.tipo, vendedor.cpf]);
-  res.send(JSONBig.parse(JSONBig.stringify(result)));// converte o return em json e dps em obj para só dps fazer o envio
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
+});
+
+server.put('/vendedores/:id_vendedor', async (req, res) => {
+  let vendedor = req.body; 
+  let headerVendedor = req.params.id_vendedor; 
+  
+  const result = await db.pool.query("update vendedor set nome=?, cnpj=?, nome_fantasia=?, email=?, contato=?, numero=?, rua=?, cep=?, bairro=?, tipo=?, cpf=? where id_vendedor = ?", [vendedor.nome, vendedor.cnpj, vendedor.nome_fantasia, vendedor.email, vendedor.contato, vendedor.numero, vendedor.rua, vendedor.cep, vendedor.bairro, vendedor.tipo, vendedor.cpf, headerProduto]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
 });
 
 // rotas produtos
