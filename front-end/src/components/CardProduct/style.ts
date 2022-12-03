@@ -22,10 +22,14 @@ export const ContainerCard = styled.div<ContentImgProps>`
   cursor: pointer;
   width: 300px;
   height: 480px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border: 1px solid #dbdbdb;
+  outline: none;
+
+  background-color: rgb(130 126 149 / 5%);
 
   &:hover {
-    border: 2px solid #b3bab5;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #AFB1CF;
   }
 `;
 
@@ -49,12 +53,13 @@ export const ProductImg = styled.img`
   position: absolute;
   left: 14px;
   top: 16px;
+  z-index: 2;
 `;
 
 export const StyledH1 = styled.h1`
   font-family: "Poppins", sans-serif;
   font-size: ${convertToRem(18)};
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   padding-bottom: 0.9em;
   color: #2e2e33;
@@ -120,4 +125,14 @@ export const ButtonIcon = {
   right: "0.5em",
   top: "1.2em",
   fontSize: "1.6em",
+};
+
+export const ButtonStyle = {
+  backgroundColor: "#6064B9 !important",
+  color: "#fff",
+  borderRadius: "8px",
+  padding: "0.7em 2em",
+  marginRight: "0.5em",
+  marginTop: "2em",
+  cursor: "pointer",
 };

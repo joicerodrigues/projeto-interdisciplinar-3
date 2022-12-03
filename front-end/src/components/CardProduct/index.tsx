@@ -1,40 +1,78 @@
-import { useState } from 'react';
-import ComputerScrap from '../../assets/img/used-computer-cpu-motherboard-scrap-for-sale-336402.jpg';
-import { Container, ContainerCard, ProductPrice, ProductInformation, ContentImg, ProductImg, StyledH1, ProductDescription, ContentButtons } from './style';
+import { useEffect, useState } from 'react';
+import {
+    Container,
+    ContainerCard,
+    ProductPrice,
+    ProductInformation,
+    ContentImg,
+    ProductImg,
+    StyledH1,
+    ProductDescription,
+    ContentButtons,
+    ButtonStyle
+} from './style';
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
 import ScaleRoundedIcon from '@mui/icons-material/ScaleRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { average } from 'color.js'
+import { average } from 'color.js';
 
-function CardProduct() {
-    const text = "Placa mãe, memória, processador, placa central telefônica, placa de celular todo tipo de sucata informatica e eletronica compra paga se por kg buscamos no local consulte valores"
+interface ICardProduct {
+    title           ?: string;
+    description     ?: string;
+    price           ?: string;
+    weight          ?: string;
+    labelButton     ?: string;
+    image           ?: string;
+}
+
+function CardProduct({title, description, price, image, weight, labelButton}:ICardProduct) {
+    const StyeleButton = styled(Button)({
+        boxShadow: 'none',
+        textTransform: 'none',
+        fontSize: 16,
+        padding: '10px 12px',
+        border: '1px solid',
+        lineHeight: 1.5,
+        backgroundColor: '#7376AD',
+    });
+
     const [averageColor, setAverageColor] = useState({} as any);
 
-    average(ComputerScrap, { format: 'hex' }).then(color => {
-        return setAverageColor(color);
-    })
+    useEffect(() => {
+        average(image as string, { format: 'hex' }).then(color => {
+            setAverageColor(color);
+        });
+    }, [image]);
 
     return (
         <Container>
             <ContainerCard>
-                <ProductImg src={ComputerScrap} alt=" Computer Scrap" />
-                <ContentImg color={averageColor} hover={averageColor}></ContentImg>
-                <StyledH1>Sucata informática eletronica compra</StyledH1>
+                <ProductImg src={image} alt="Computer Scrap" />
+                <ContentImg color={averageColor} />
+                <StyledH1>{title}</StyledH1>
                 <ProductPrice>
-                    <AttachMoneyRoundedIcon color="success"></AttachMoneyRoundedIcon>
-                    <p>R$ 99,00</p>
+                    <AttachMoneyRoundedIcon color="disabled"></AttachMoneyRoundedIcon>
+                    <p>{price}</p>
                 </ProductPrice>
                 <ProductInformation>
                     <ScaleRoundedIcon color="disabled" sx={{ fontSize: 18 }}></ScaleRoundedIcon>
-                    <p>10 Kg</p>
+                    <p>{weight}</p>
                 </ProductInformation>
                 <ProductDescription>
-                    {`${text.substring(0, 100) + ' ...'}`}
+                    {`${description?.substring(0, 100) + ' ...'}`}
                 </ProductDescription>
 
                 <ContentButtons>
-                    <Button variant="contained" size="small" startIcon={<ShoppingCartRoundedIcon />}> Comprar </Button>
+                    <StyeleButton 
+                        variant="contained" 
+                        size="small" 
+                        startIcon={<ShoppingCartRoundedIcon />}
+                        sx={ButtonStyle}
+                    >
+                        {labelButton}
+                    </StyeleButton>
                 </ContentButtons>
             </ContainerCard>
         </Container>

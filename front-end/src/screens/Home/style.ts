@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import convertToRem from "../../utils/convertToRem";
+import img from "../../assets/img/background-home.jpg";
 
 export const ContainerHome = styled.div`
   display: flex;
@@ -8,6 +9,10 @@ export const ContainerHome = styled.div`
   height: 90vh;
   width: 80vw;
   margin: 0 auto;
+
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: auto ${convertToRem(1500)};
 `;
 
 export const Wrapper = styled.div`
