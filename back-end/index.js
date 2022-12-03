@@ -63,7 +63,7 @@ server.post('/produtos', async (req, res) => {
   let produto = req.body; 
   console.log(typeof produto.id_produto);
   //const result = await db.pool.query("insert into produto values(?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao])
-  const result = await db.pool.query("insert into produto (id_produto, id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?, ?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
+  const result = await db.pool.query("insert into produto (id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?)", [produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
   res.send(JSONBig.parse(JSONBig.stringify(result)));
  // const { Produto } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
  // produtos.push(Produto);
@@ -84,7 +84,7 @@ server.post('/produtos', async (req, res) => {
 server.put('/produtos/:id_produto', async (req, res) => {
   let produto = req.body;
   let headerProduto = req.params.id_produto;
-  
+
   console.log(req.header.name);
   const result = await db.pool.query("update produto set nome=?, valor=?, peso=?, imagem=?, descricao=? where id_produto = ?", [produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao, headerProduto]);
   res.send(JSONBig.parse(JSONBig.stringify(result)));
@@ -94,14 +94,12 @@ server.put('/produtos/:id_produto', async (req, res) => {
   return res.json(produtos);*/
 }); // retorna novamente os produtos atualizados após o update
 
-server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
-  const { index } = req.params; // recupera o index com os dados
-
-  produtos.splice(index, 1); // percorre o vetor até o index selecionado e deleta uma posição no array
-
-  return res.send();
+server.delete('/produtos/:id_produto', async (req, res) => {
+  let produto = req.body;// recupera o index com os dados
+  let headerProduto = req.params.id_produto;
+  const result = await db.pool.query("delete from produto where id_produto = ?", [headerProduto]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));
 }); // retorna os dados após exclusão
-
 
 // rotas login
 server.get('/login', async (req, res) => {
@@ -113,7 +111,7 @@ server.get('/login', async (req, res) => {
 	}
   });
 
-  server.post('/tchek', function(req, res) {
+  server.post('/login', function(req, res) {
 
     let email = req.body.email;
     let password = req.body.password;
