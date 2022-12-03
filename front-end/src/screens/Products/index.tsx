@@ -1,9 +1,10 @@
-// import CardProduct from "../../components/CardProduct";
+import CardProduct from "../../components/CardProduct";
 import { ContainerProducts } from "./style";
 
 function Login() {
     return (
         <ContainerProducts>
+            <CardProduct />
         </ContainerProducts>
     );
 }
