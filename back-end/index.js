@@ -23,7 +23,7 @@ server.use((req, res, next) => { // server.use cria o middleware global
   next(); // função que chama as próximas ações 
 });
 
-function checkProdutoExists(req, res, next) {
+/*function checkProdutoExists(req, res, next) {
   if (!req.body.Produto) {
     return res.status(400).json({ error: 'produto name is required' });
     // middleware local que irá checar se a propriedade name foi infomada, 
@@ -42,24 +42,26 @@ function checkProdutoInArray(req, res, next) {
 
   return next();
 }
+*/
+
+//rotas vendedores
+server.get('/vendedores', async (req, res) =>{
+ const result = await db.pool.query("selec * from vendedor");
+ res.send(result);
+});
+
+
 
 // rotas produtos
-// GET
 server.get('/produtos', async (req, res) => {
   const result = await db.pool.query("select * from produto");
 		res.send(result);
     } );
-    
-
-
-server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
-  return res.json(req.produtos);
-});
  
 server.post('/produtos', async (req, res) => {
-  let produto = req.body; //sobrepóe/edita o index obtido ma rota de acordo com o novo valor
-  console.log(typeof produto.id_produto);// recupera a headerProduto com os dados
-  const result = await db.pool.query("insert into produto (id_produto, id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?, ?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
+  let produto = req.body; //sobrepõe/edita o index obtido ma rota de acordo com o novo valor
+
+  const result = await db.pool.query("insert into produto (id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?)", [produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
   res.send(JSONBig.parse(JSONBig.stringify(result)));// converte o return em json e dps em obj para só dps fazer o envio
 });
 
