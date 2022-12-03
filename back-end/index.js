@@ -46,11 +46,16 @@ function checkProdutoInArray(req, res, next) {
 
 //rotas vendedores
 server.get('/vendedores', async (req, res) =>{
- const result = await db.pool.query("selec * from vendedor");
+ const result = await db.pool.query("select * from vendedor");
  res.send(result);
 });
 
+server.post('/vendedores', async (req, res) => {
+  let produto = req.body;
 
+  const result = await db.pool.query("insert into vendedor (id_usuario, nome, cnpj, nome_fantasia, email, contato, numero, rua, cep, bairro, tipo, cpf)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [vendedor.id_usuario, vendedor.nome, vendedor.cnpj, vendedor.nome_fantasia, vendedor.email, vendedor.contato, vendedor.numero, vendedor.rua, vendedor.cep, vendedor.bairro, vendedor.tipo, vendedor.cpf]);
+  res.send(JSONBig.parse(JSONBig.stringify(result)));// converte o return em json e dps em obj para só dps fazer o envio
+});
 
 // rotas produtos
 server.get('/produtos', async (req, res) => {
