@@ -21,10 +21,6 @@ server.use((req, res, next) => { // server.use cria o middleware global
   // retorna qual o método e url foi chamada
 
   next(); // função que chama as próximas ações 
-
- // console.log('Finalizou'); // será chamado após a requisição ser concluída
-
- // console.timeEnd('Request'); // marca o fim da requisição
 });
 
 function checkProdutoExists(req, res, next) {
@@ -47,6 +43,7 @@ function checkProdutoInArray(req, res, next) {
   return next();
 }
 
+// rotas produtos
 // GET
 server.get('/produtos', async (req, res) => {
   const result = await db.pool.query("select * from produto");
@@ -60,46 +57,27 @@ server.get('/produtos/:index', checkProdutoInArray, (req, res) => {
 });
  
 server.post('/produtos', async (req, res) => {
-  let produto = req.body; 
-  console.log(typeof produto.id_produto);
-  //const result = await db.pool.query("insert into produto values(?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao])
+  let produto = req.body; //sobrepóe/edita o index obtido ma rota de acordo com o novo valor
+  console.log(typeof produto.id_produto);// recupera a headerProduto com os dados
   const result = await db.pool.query("insert into produto (id_produto, id_categoria, id_vendedor, nome, valor, peso, imagem, descricao) values(?, ?, ?, ?, ?, ?, ?, ?)", [produto.id_produto, produto.id_categoria, produto.id_vendedor, produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao]);
-  res.send(JSONBig.parse(JSONBig.stringify(result)));
- // const { Produto } = req.body; // assim esperamos buscar o name informado dentro do body da requisição  
- // produtos.push(Produto);
- // return res.json(produtos); // retorna a informação da variavel produtos
+  res.send(JSONBig.parse(JSONBig.stringify(result)));// converte o return em json e dps em obj para só dps fazer o envio
 });
 
-//app.post('/tasks', async (req, res) => {
-/*  let task = req.body;
-  try {
-      const result = await db.pool.query("insert into tasks (description) values (?)", [task.description]);
-      res.send(result);
-  } catch (err) {
-      throw err;
-  }
-});*/
-
-
 server.put('/produtos/:id_produto', async (req, res) => {
+  let produto = req.body; //sobrepóe/edita o index obtido ma rota de acordo com o novo valor
+  let headerProduto = req.params.id_produto; // recupera a headerProduto com os dados
+  
+  const result = await db.pool.query("update produto set nome=?, valor=?, peso=?, imagem=?, descricao=? where id_produto = ?", [produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao, headerProduto]);
+  res.send(JSONBig.parse(JSONBig.stringify(result))); // converte o return em json e dps em obj para só dps fazer o envio
+});
+
+server.delete('/produtos/:id_produto', async (req, res) => {
   let produto = req.body;
   let headerProduto = req.params.id_produto;
   
   console.log(req.header.name);
-  const result = await db.pool.query("update produto set nome=?, valor=?, peso=?, imagem=?, descricao=? where id_produto = ?", [produto.nome, produto.valor, produto.peso, produto.imagem, produto.descricao, headerProduto]);
+  const result = await db.pool.query("delete from produto set id_produto=? where id_produto = ?", [produto.id_produto, headerProduto]);
   res.send(JSONBig.parse(JSONBig.stringify(result)));
- /* const { index } = req.params; // recupera o index com os dados
-  const { Produto } = req.body;
-  produtos[index] = Produto; // sobrepõe/edita o index obtido na rota de acordo com o novo valor
-  return res.json(produtos);*/
-}); // retorna novamente os produtos atualizados após o update
-
-server.delete('/produtos/:index', checkProdutoInArray, (req, res) => {
-  const { index } = req.params; // recupera o index com os dados
-
-  produtos.splice(index, 1); // percorre o vetor até o index selecionado e deleta uma posição no array
-
-  return res.send();
 }); // retorna os dados após exclusão
 
 
@@ -113,7 +91,7 @@ server.get('/login', async (req, res) => {
 	}
   });
 
-  server.post('/tchek', function(req, res) {
+  server.post('/login', function(req, res) {
 
     let email = req.body.email;
     let password = req.body.password;
@@ -144,10 +122,8 @@ server.get('/login', async (req, res) => {
   server.get('/home', function(req, res) {
     
     if (req.session.loggedin) {
-      
       res.send('Welcome back, ' + req.session.email + '!');
     } else {
-      
       res.send('Please login to view this page!');
     }
     res.end();
