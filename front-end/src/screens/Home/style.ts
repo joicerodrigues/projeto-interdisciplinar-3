@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import convertToRem from "../../utils/convertToRem";
-import img from "../../assets/img/background-home.jpg";
+import img from "../../assets/img/2806681.jpg";
+
+export const Container = styled.div`
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+`;
 
 export const ContainerHome = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
-  width: 80vw;
+  height: 100vh;
+  width: 90vw;
   margin: 0 auto;
-
-  background-image: url(${img});
-  background-repeat: no-repeat;
-  background-size: auto ${convertToRem(1500)};
+  position: relative;
+  top: ${convertToRem(-60)};
 `;
 
 export const Wrapper = styled.div`
@@ -64,5 +70,5 @@ export const LottieScroll = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: ${convertToRem(20)};
+  bottom: ${convertToRem(90)};
 `;
