@@ -8,9 +8,12 @@ export const HeaderContainer = styled.header`
   position: relative;
   z-index: 2;
 
-  background-color: rgb(255 255 255 / 58%);
-  color: rgba(3, 26, 108, 0.1);
-  border-bottom: 1px solid #F2F3FF;
+  position: fixed;
+  width: -webkit-fill-available;
+
+  background-color: rgb(255 255 255 / 90%);
+  color: rgba(3,26,108,0.1);
+  border-bottom: 1px solid #d7d9eb;
 `;
 
 export const HeaderItens = styled.ul`

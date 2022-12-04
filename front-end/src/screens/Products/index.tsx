@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HeaderHome from "../../components/HeaderHome";
 import CardProduct from "../../components/CardProduct";
-import { ContainerProducts, ContainerSearchProducts, ContentSearchProducts, InputTextStyle, ContainerProductsList, SubHeader } from "./style";
+import { ContainerProducts, ContainerSearchProducts, ContentSearchProducts, InputTextStyle, ContainerProductsList, ContetentProductsList, SubHeader } from "./style";
 import InputText from "../../components/InputText";
 import ExpandableButton from "../../components/ExpandableButton"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { getProducts } from '../../services/products'
 
 function Login() {
     const [search, setSearch] = useState('' as string);
@@ -19,22 +20,25 @@ function Login() {
         setSearch(event.target.value);
     }
 
-    const products = [
-        {
-            title: "Sucata informática eletronica compra",
-            price: "R$ 120,00",
-            weight: "10 Kg",
-            image: "https://i.imgur.com/i0tnYFf.jpg",
-            description: "Placa mãe, memória, processador, placa central telefônica, placa de celular todo tipo de sucata informatica e eletronica compra paga se por kg buscamos no local consulte valores",
-        },
-        {
-            title: "Sucata informática eletronica compra",
-            price: "R$ 120,00",
-            weight: "10 Kg",
-            image: "https://i.imgur.com/8t3yoqA.jpg",
-            description: "Placa mãe, memória, processador, placa central telefônica, placa de celular todo tipo de sucata informatica e eletronica compra paga se por kg buscamos no local consulte valores",
-        },
-    ] as Array<any>;
+    const [products, setProducts] = useState([] as Array<any>);
+
+    useEffect(() => {
+        getProducts().then((response) => {
+            setProducts(response.data);
+        });
+    }, []);
+
+    function arrayBufferToBase64(buffer: any) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
+    function convertImageBlobToUrl(image: any) {
+        const base64img = arrayBufferToBase64(image.data);
+        return "data:image/png;base64," + base64img;
+    }
 
     return (
         <ContainerProducts>
@@ -65,19 +69,23 @@ function Login() {
             </ContainerSearchProducts>
 
             <ContainerProductsList>
-                {products.map((product, index) => {
-                    return (
-                        <CardProduct
-                            title={product.title}
-                            description={product.description}
-                            price={product.price}
-                            weight={product.weight}
-                            image={product.image}
-                            labelButton="Comprar"
-                        />
-                    )
-                }
-                )}
+                <ContetentProductsList>
+                    {products.map((product, index) => {
+                        return (
+                            <CardProduct
+                                title={product.nome}
+                                description={product.descricao}
+                                price={"R$ " + product.valor}
+                                weight={product.peso + " Kg"}
+                                image={
+                                    convertImageBlobToUrl(product.imagem)
+                                }
+                                labelButton="Comprar"
+                            />
+                        )
+                    }
+                    )}
+                </ContetentProductsList>
             </ContainerProductsList>
 
         </ContainerProducts>

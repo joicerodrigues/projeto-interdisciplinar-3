@@ -5,8 +5,8 @@ import { createPool } from 'mariadb';
 var pool = 
   createPool({
     host: '127.0.0.1',
-    user: 'root',
-    password: '',
+    user: 'julia',
+    password: '30112002',
     database: 'sucatia',
     connectionLimit: 5
   });

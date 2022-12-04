@@ -50,11 +50,12 @@ export const ContentText = styled.div` {
   font-size: ${convertToRem(18)};
   color: #F1F1F1;
   height: ${convertToRem(130)};
-  padding-top: ${convertToRem(110)};
+  padding-top: ${convertToRem(160)};
 
   p {
-    padding: ${convertToRem(10)} 0;
-    font-weight: 100;
+    padding-top: ${convertToRem(20)};
+    font-size: ${convertToRem(20)};
+    font-weight: 200;
   }
 `;
 

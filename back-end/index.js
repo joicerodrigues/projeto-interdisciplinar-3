@@ -2,11 +2,11 @@ import {product} from './classProduct.js';
 import express from 'express';
 import db from './databaseConnect.js';
 import JSONBig from 'json-bigint';
-
+import cors from 'cors';
 
 var router = express.Router();
 const server = express();
-server.use(express.json()); // faz com que o express entenda JSON
+server.use(express.json(), cors()); // faz com que o express entenda JSON
 
 // Query params = ?teste=1
 // Route params = /produtos/1

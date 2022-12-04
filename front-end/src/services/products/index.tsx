@@ -11,7 +11,7 @@ interface Product {
 }
 
 function getProducts() {
-    instance.get('/products')
+    return instance.get('/produtos')
 }
 
 function getProduct(id: string) {

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import convertToRem from "../../utils/convertToRem";
-import { green } from "@mui/material/colors";
-
 interface ContentImgProps {
   color?: any;
   hover?: any;
@@ -38,7 +36,7 @@ export const ContentImg = styled.div<ContentImgProps>`
   height: 100px;
   border-radius: 10px 90px 10px 10px;
   background: ${(props) => (props.color ? props.color : "#8FB5AB")};
-  opacity: 0.4;
+  opacity: 0.5;
   margin-bottom: 1em;
   display: flex;
   justify-content: center;

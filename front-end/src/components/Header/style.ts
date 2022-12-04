@@ -15,7 +15,7 @@ export const HeaderItens = styled.ul`
 
   a {
     font-family: "Poppins", sans-serif;
-    font-weight: 200;
+    font-weight: 300;
     text-decoration: none;
     color: #eeeeee;
     font-size: ${convertToRem(18)};
