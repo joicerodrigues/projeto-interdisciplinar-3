@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
-import { HeaderContainer, HeaderItens } from "./style"
+import { HeaderContainer, HeaderItens, HeaderButton } from "./style"
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const navigate = useNavigate();
+
+    const navigateToLogin = () => {
+        navigate('/login');
+    };
+
     return (
         <HeaderContainer>
             <HeaderItens>
@@ -18,6 +26,10 @@ function Header() {
                     <Link to="/contact">Serviços</Link>
                 </ul>
             </HeaderItens>
+
+            <HeaderButton onClick={navigateToLogin}>
+                Login | Cadastro
+            </HeaderButton>
         </HeaderContainer>
     );
 }

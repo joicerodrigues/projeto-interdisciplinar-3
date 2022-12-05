@@ -1,32 +1,60 @@
 import { useState, useEffect } from 'react';
 import HeaderHome from "../../components/HeaderHome";
 import CardProduct from "../../components/CardProduct";
-import { ContainerProducts, ContainerSearchProducts, ContentSearchProducts, InputTextStyle, ContainerProductsList, ContetentProductsList, SubHeader } from "./style";
+import {
+    ContainerProducts,
+    ContainerSearchProducts,
+    ContentSearchProducts,
+    InputTextStyle,
+    ContainerProductsList,
+    ContetentProductsList,
+    SubHeader,
+    FadeInUpDiv,
+    ContentNothingFound,
+    NothingFound
+} from "./style";
 import InputText from "../../components/InputText";
 import ExpandableButton from "../../components/ExpandableButton"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { getProducts } from '../../services/products'
+import { getProducts } from '../../services/products';
+import nothingFound from "../../assets/lotties/gpNwVHuEII.json";
+import Lottie from "lottie-react";
 
-function Login() {
+function Products() {
     const [search, setSearch] = useState('' as string);
     const ProductCategory = [
         "Categoria 1",
         "Categoria 2",
         "Categoria 3"
     ] as string[];
+    const [products, setProducts] = useState([] as Array<any>);
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setSearch(event.target.value);
     }
-
-    const [products, setProducts] = useState([] as Array<any>);
 
     useEffect(() => {
         getProducts().then((response) => {
             setProducts(response.data);
         });
     }, []);
+
+    function filterProducts() {
+        if (search === '') {
+            return products;
+        }
+
+        return products.filter((product: any) => {
+            var name = product.nome.toLowerCase() as string;
+            name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "") as string;
+
+            var searchNormalize = search.toLowerCase() as string;
+            searchNormalize = searchNormalize.normalize('NFD').replace(/[\u0300-\u036f]/g, "") as string;
+
+            return name.includes(searchNormalize);
+        });
+    }
 
     function arrayBufferToBase64(buffer: any) {
         var binary = '';
@@ -44,7 +72,6 @@ function Login() {
         <ContainerProducts>
             <HeaderHome />
             <SubHeader />
-
             <ContainerSearchProducts>
                 <ContentSearchProducts>
                     <InputText
@@ -70,26 +97,38 @@ function Login() {
 
             <ContainerProductsList>
                 <ContetentProductsList>
-                    {products.map((product, index) => {
-                        return (
-                            <CardProduct
-                                title={product.nome}
-                                description={product.descricao}
-                                price={"R$ " + product.valor}
-                                weight={product.peso + " Kg"}
-                                image={
-                                    convertImageBlobToUrl(product.imagem)
-                                }
-                                labelButton="Comprar"
-                            />
-                        )
+                    {
+                        filterProducts().map((product, index) => {
+                            return (
+                                <FadeInUpDiv key={index}>
+                                    <CardProduct
+                                        title={product.nome}
+                                        description={product.descricao}
+                                        price={"R$ " + product.valor}
+                                        weight={product.peso + " Kg"}
+                                        image={
+                                            convertImageBlobToUrl(product.imagem)
+                                        }
+                                        labelButton="Comprar"
+                                    />
+                                </FadeInUpDiv>
+                            )
+                        })
                     }
-                    )}
                 </ContetentProductsList>
+
+                <ContentNothingFound>
+                    {!filterProducts().length && search !== '' && (
+                        <NothingFound>
+                            <Lottie animationData={nothingFound} />
+                            <p>Nenhum resultado encontrato</p>
+                        </NothingFound>
+                    )}
+                </ContentNothingFound>
             </ContainerProductsList>
 
         </ContainerProducts>
     );
 }
 
-export default Login;
+export default Products;

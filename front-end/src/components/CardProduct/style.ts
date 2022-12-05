@@ -1,9 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import convertToRem from "../../utils/convertToRem";
+import { fadeInUp } from 'react-animations';
+
 interface ContentImgProps {
   color?: any;
   hover?: any;
 }
+
+const fadeInUpAnimation = keyframes`${fadeInUp}`;
+
+export const FadeInUpDiv = styled.div`
+  animation: 0.6s ${fadeInUpAnimation};
+`;
 
 export const Container = styled.div``;
 
@@ -96,7 +104,9 @@ export const ProductDescription = styled.p`
 export const ContentButtons = styled.div`
   display: flex;
   justify-content: end;
-  align-items: center;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 3em;
 
   & > button {
     display: flex;
@@ -133,4 +143,5 @@ export const ButtonStyle = {
   marginRight: "0.5em",
   marginTop: "2em",
   cursor: "pointer",
+  width: "14.5em",
 };

@@ -1,9 +1,21 @@
-import { ContainerLogin, ContentLogin, FormControl, Title, Link, SubTitle, ContentButtons } from "./style"
+import {
+    ContainerLogin,
+    ContentLogin,
+    FormControl,
+    Title,
+    Link,
+    SubTitle,
+    ContentButtons,
+    LottieAnimation,
+    StyleLottie
+} from "./style"
 import { useState } from 'react';
 import { validadeEmail, validadePassword } from "../../utils/validadeText";
 import InputText from "../../components/InputText";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import ButtonText from "../../components/ButtonText";
+import Lottie from "lottie-react";
+import planetEarth from "../../assets/lotties/lf30_rwpu0mow.json";
 
 function Login() {
 
@@ -29,8 +41,11 @@ function Login() {
     return (
         <ContainerLogin>
             <ContentLogin>
+                <LottieAnimation>
+                    <Lottie animationData={planetEarth} loop={false} style={StyleLottie}/>
+                </LottieAnimation>
                 <Title>
-                    <p>Bem vindo novamente</p>
+                    <p>Olá, seja bem vindo(a)</p>
                 </Title>
                 <SubTitle>
                     <p>
@@ -54,22 +69,23 @@ function Login() {
                         name="password"
                         value={password}
                         onChange={handleChange}
+                        style={{ borderRadius: 5 }}
                     />
 
                     <ContentButtons>
-                    <ButtonPrimary
-                        disabled={errorEmail || errorPassword}
-                        label="Entrar"
-                        onClick={() => { }}
-                        size="medium"
-                    />
+                        <ButtonPrimary
+                            disabled={errorEmail || errorPassword}
+                            label="Entrar"
+                            onClick={() => { }}
+                            size="medium"
+                        />
 
-                    <ButtonText
-                        disabled={errorEmail || errorPassword}
-                        label="Esqueci minha senha"
-                        onClick={() => { }}
-                        size="small"
-                    />
+                        <ButtonText
+                            disabled={errorEmail || errorPassword}
+                            label="Esqueci minha senha"
+                            onClick={() => { }}
+                            size="small"
+                        />
                     </ContentButtons>
 
 

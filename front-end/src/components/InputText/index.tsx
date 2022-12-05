@@ -25,19 +25,22 @@ const CssTextField = styled(TextField)({
     },
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
             borderBottomLeftRadius: 6,
             borderTopLeftRadius: 6,
         },
         '&:hover fieldset': {
-            borderColor: '#6166B7',
             borderRadious: 6,
         },
-        '&.Mui-focused fieldset': {
-            borderColor: '#6166B7',
+        '&.Mui-focused fieldset': {           
             borderRadious: 6,
         },
+        '&.MuiFormHelperText-root': {
+            color: '#1976d2',
+            fontSize: 12,
+            marginTop: 0,
+            marginBottom: 0,
+        },
+        
     },
 });
 

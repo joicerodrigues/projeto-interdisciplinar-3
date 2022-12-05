@@ -9,7 +9,8 @@ import {
     StyledH1,
     ProductDescription,
     ContentButtons,
-    ButtonStyle
+    ButtonStyle,
+    FadeInUpDiv
 } from './style';
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
 import ScaleRoundedIcon from '@mui/icons-material/ScaleRounded';
@@ -25,9 +26,10 @@ interface ICardProduct {
     weight          ?: string;
     labelButton     ?: string;
     image           ?: string;
+    style           ?: React.CSSProperties;
 }
 
-function CardProduct({title, description, price, image, weight, labelButton}:ICardProduct) {
+function CardProduct({title, description, price, image, weight, labelButton, style}:ICardProduct) {
     const StyeleButton = styled(Button)({
         boxShadow: 'none',
         textTransform: 'none',
@@ -48,16 +50,17 @@ function CardProduct({title, description, price, image, weight, labelButton}:ICa
 
     return (
         <Container>
-            <ContainerCard>
+            <FadeInUpDiv>
+            <ContainerCard style={style}>
                 <ProductImg src={image} alt="Computer Scrap" />
                 <ContentImg color={averageColor} />
                 <StyledH1>{title}</StyledH1>
                 <ProductPrice>
-                    <AttachMoneyRoundedIcon color="disabled"></AttachMoneyRoundedIcon>
+                    <AttachMoneyRoundedIcon color="disabled" />
                     <p>{price}</p>
                 </ProductPrice>
                 <ProductInformation>
-                    <ScaleRoundedIcon color="disabled" sx={{ fontSize: 18 }}></ScaleRoundedIcon>
+                    <ScaleRoundedIcon color="disabled" sx={{ fontSize: 18 }} />
                     <p>{weight}</p>
                 </ProductInformation>
                 <ProductDescription>
@@ -75,6 +78,7 @@ function CardProduct({title, description, price, image, weight, labelButton}:ICa
                     </StyeleButton>
                 </ContentButtons>
             </ContainerCard>
+            </FadeInUpDiv>
         </Container>
 
     );

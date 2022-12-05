@@ -1,19 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import convertToRem from "../../utils/convertToRem";
-// import img from "../../assets/img/background-home.jpg";
+import { fadeInUp } from "react-animations";
 
-export const ContainerProducts = styled.div`
-  &:before {
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.2;
-    z-index: 0.5;
-    width: 100vw;
-    height: 100em;
-  }
+const fadeInUpAnimation = keyframes`${fadeInUp}`;
+
+export const FadeInUpDiv = styled.div`
+  animation: 0.6s ${fadeInUpAnimation};
 `;
+
+export const ContainerProducts = styled.div``;
 
 export const ContainerSearchProducts = styled.div`
   display: flex;
@@ -25,7 +20,7 @@ export const SubHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   height: ${convertToRem(150)};
   position: relative;
   z-index: 1;
@@ -50,14 +45,37 @@ export const ContetentProductsList = styled.div`
   justify-content: center;
   align-items: center;
   justify-items: center;
+  animation: 0.6s ${fadeInUpAnimation};
+`;
+
+export const NothingFound = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 25em;
+
+  & > p {
+    font-size: ${convertToRem(22)};
+    font-weight: 500;
+    color: #95959a;
+  }
+`;
+
+export const ContentNothingFound = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerProductsList = styled.div`
-  margin: 0 ${convertToRem(155)};
+  animation: 0.6s ${fadeInUpAnimation};
 `;
 
 export const InputTextStyle = {
   backgroundColor: "#fff",
   borderBottomRightRadius: 0,
   borderTopRightRadius: 0,
+  borderBottomLeftRadius: 6,
+  borderTopLeftRadius: 6,
 };

@@ -7,6 +7,9 @@ export const ButtonStyle = {
   marginBottom: 1,
   backgroundColor: "#6166B7",
   fontWeight: 500,
+  position: "relative",
+  left: -1,
+  top: -2,
 
   "&:hover": {
     backgroundColor: "#5458AC",

@@ -30,10 +30,15 @@ function deleteProduct(id: string) {
     instance.delete(`/products/${id}`)
 }
 
+function getCategoriesProducts() {
+    return instance.get('/categories')
+}
+
 export {
     getProducts,
     getProduct,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getCategoriesProducts
 }

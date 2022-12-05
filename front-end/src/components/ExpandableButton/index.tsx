@@ -12,6 +12,7 @@ interface ButtonProps {
     disabled        ?: boolean;
     CategoryItem    ?: string[];
     size            ?: 'small' | 'medium' | 'large';
+    style           ?: React.CSSProperties;
 }
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -48,7 +49,7 @@ const StyledMenu = styled((props: MenuProps) => (
         },
     }));
 
-export default function CustomizedMenus({ label, CategoryItem }: ButtonProps) {
+export default function CustomizedMenus({ label, CategoryItem, style }: ButtonProps) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -69,6 +70,7 @@ export default function CustomizedMenus({ label, CategoryItem }: ButtonProps) {
                 onClick={handleClick}
                 endIcon={<KeyboardArrowDownIcon />}
                 sx={ButtonStyle}
+                style={style}
             >
                 {label}
             </Button>
