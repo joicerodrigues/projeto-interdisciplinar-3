@@ -9,6 +9,21 @@ export const ContainerLogin = styled.div`
   min-width: 320px;
 `;
 
+export const StyleLottie = {
+  width: 310,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}
+
+export const LottieAnimation = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: -8px;
+`;
+
 export const ContentLogin = styled.div`
   backdrop-filter: blur(4px) saturate(180%);
   -webkit-backdrop-filter: blur(4px) saturate(180%);

@@ -1,19 +1,53 @@
 import { ContainerInput, Input } from "./style"
 import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material/styles';
 
 interface InputTextProps {
-    error: boolean;
-    label: string;
-    messageError: string;
-    name: string;
-    value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    error           ?: boolean;
+    label           ?: string;
+    messageError    ?: string;
+    name            ?: string;
+    value           ?: string;
+    placeholder     ?: string;
+    style           ?: React.CSSProperties;
+    onChange        ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    [x: string]      : any;
 }
 
-function Login({ error, messageError, label, name, value, onChange }: InputTextProps) {
+const CssTextField = styled(TextField)({
+    '& label.Mui-focused': {
+        borderColor: '#6166B7',
+        borderRadious: 6,
+    },
+    '& .MuiInput-underline:after': {
+        borderColor: '#6166B7',
+        borderRadious: 6,
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderBottomLeftRadius: 6,
+            borderTopLeftRadius: 6,
+        },
+        '&:hover fieldset': {
+            borderRadious: 6,
+        },
+        '&.Mui-focused fieldset': {           
+            borderRadious: 6,
+        },
+        '&.MuiFormHelperText-root': {
+            color: '#1976d2',
+            fontSize: 12,
+            marginTop: 0,
+            marginBottom: 0,
+        },
+        
+    },
+});
+
+function Login({ error, messageError, label, name, value, style, onChange, placeholder, ...props }: InputTextProps) {
     return (
         <ContainerInput>
-            <TextField
+            <CssTextField
                 error={error}
                 id="outlined-basic"
                 helperText={messageError}
@@ -22,7 +56,10 @@ function Login({ error, messageError, label, name, value, onChange }: InputTextP
                 variant="outlined"
                 value={value}
                 onChange={onChange}
-                style = {Input}
+                placeholder={placeholder}
+                style={Input}
+                sx={style}
+                { ...props }
             />
         </ContainerInput>
     );

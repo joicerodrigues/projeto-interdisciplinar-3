@@ -1,13 +1,24 @@
 import styled from "styled-components";
 import convertToRem from "../../utils/convertToRem";
+import img from "../../assets/img/2806681.jpg";
+
+export const Container = styled.div`
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+`;
 
 export const ContainerHome = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
-  width: 80vw;
+  height: 100vh;
+  width: 90vw;
   margin: 0 auto;
+  position: relative;
+  top: ${convertToRem(-30)};
 `;
 
 export const Wrapper = styled.div`
@@ -39,11 +50,12 @@ export const ContentText = styled.div` {
   font-size: ${convertToRem(18)};
   color: #F1F1F1;
   height: ${convertToRem(130)};
-  padding-top: ${convertToRem(110)};
+  padding-top: ${convertToRem(160)};
 
   p {
-    padding: ${convertToRem(10)} 0;
-    font-weight: 100;
+    padding-top: ${convertToRem(20)};
+    font-size: ${convertToRem(20)};
+    font-weight: 200;
   }
 `;
 
@@ -59,5 +71,5 @@ export const LottieScroll = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: ${convertToRem(20)};
+  bottom: ${convertToRem(120)};
 `;

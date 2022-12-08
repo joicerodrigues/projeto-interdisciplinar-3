@@ -2,10 +2,10 @@ import { ButtonPrimaryStyle } from './style';
 import Button from '@mui/material/Button';
 
 interface ButtonPrimaryProps {
-    label: string;
-    onClick: () => void;
-    disabled: boolean;
-    size?: 'small' | 'medium' | 'large';
+    label           ?: string;
+    onClick         ?: () => void;
+    disabled        ?: boolean;
+    size            ?: 'small' | 'medium' | 'large';
 }
 
 function ButtonPrimary({ label, onClick, disabled, size }: ButtonPrimaryProps) {
