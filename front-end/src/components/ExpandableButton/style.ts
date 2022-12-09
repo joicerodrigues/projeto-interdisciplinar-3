@@ -8,8 +8,8 @@ export const ButtonStyle = {
   backgroundColor: "#6166B7",
   fontWeight: 500,
   position: "relative",
-  left: -1,
-  top: -2,
+  left: -2,
+  top: 2,
 
   "&:hover": {
     backgroundColor: "#5458AC",

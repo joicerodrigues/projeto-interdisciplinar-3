@@ -30,12 +30,12 @@ function Login() {
 
         if (name === 'email') {
             setEmail(value);
-            value === '' ? setErrorEmail(false) : setErrorEmail(!validadeEmail(email));
+            value === '' ? setErrorEmail(false) : setErrorEmail(!validadeEmail(value));
             return
         }
 
         setPassword(value);
-        value === '' ? setErrorPassword(false) : setErrorPassword(!validadePassword(password));
+        value === '' ? setErrorPassword(false) : setErrorPassword(!validadePassword(value));
     };
 
     return (
@@ -56,7 +56,7 @@ function Login() {
                     <InputText
                         error={errorEmail}
                         label="Email"
-                        messageError={errorEmail ? 'Email inválido' : ''}
+                        messageError={errorEmail ? 'Email inválido' : ' '}
                         name="email"
                         value={email}
                         onChange={handleChange}
@@ -65,10 +65,11 @@ function Login() {
                     <InputText
                         error={errorPassword}
                         label="Senha"
-                        messageError={errorPassword ? 'Senha inválida' : ''}
+                        messageError={errorPassword ? 'Senha inválida' : ' '}
                         name="password"
                         value={password}
                         onChange={handleChange}
+                        type={password}
                         style={{ borderRadius: 5 }}
                     />
 
@@ -81,7 +82,7 @@ function Login() {
                         />
 
                         <ButtonText
-                            disabled={errorEmail || errorPassword}
+                            disabled={false}
                             label="Esqueci minha senha"
                             onClick={() => { }}
                             size="small"
