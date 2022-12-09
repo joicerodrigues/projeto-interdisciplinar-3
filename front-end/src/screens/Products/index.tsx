@@ -17,9 +17,10 @@ import InputText from "../../components/InputText";
 import ExpandableButton from "../../components/ExpandableButton"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { getProducts } from '../../services/products';
+import { getProducts, getProduct } from '../../services/products';
 import nothingFound from "../../assets/lotties/gpNwVHuEII.json";
 import Lottie from "lottie-react";
+import ModalProduct from "../../components/ModalProduct";
 
 function Products() {
     const [search, setSearch] = useState('' as string);
@@ -29,10 +30,21 @@ function Products() {
         "Categoria 3"
     ] as string[];
     const [products, setProducts] = useState([] as Array<any>);
+    
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setSearch(event.target.value);
     }
+
+    function handleProduct(id: string) {
+        getProduct(id).then((response) => {
+            handleOpen();
+            console.log(response.data);
+        });
+    } 
 
     useEffect(() => {
         getProducts().then((response) => {
@@ -72,6 +84,11 @@ function Products() {
         <ContainerProducts>
             <HeaderHome />
             <SubHeader />
+
+            <ModalProduct 
+                active={open}
+                handleClose={handleClose}
+            />
             <ContainerSearchProducts>
                 <ContentSearchProducts>
                     <InputText
@@ -109,7 +126,8 @@ function Products() {
                                         image={
                                             convertImageBlobToUrl(product.imagem)
                                         }
-                                        labelButton="Comprar"
+                                        labelButton="Detalhes"
+                                        onClick={() => handleProduct(product.id_produto)}
                                     />
                                 </FadeInUpDiv>
                             )

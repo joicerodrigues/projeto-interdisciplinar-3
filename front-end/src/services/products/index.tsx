@@ -1,13 +1,12 @@
 import instance from '../index';
-
 interface Product {
-    id          :string;
-    name        :string;
-    price       :number;
-    category    :string;
-    description :string;
-    weight      :number;
-    image       :string;
+    id              :string;
+    name            :string;
+    price           :number;
+    category        :string;
+    description     :string;
+    weight          :number;
+    image           :string;
 }
 
 function getProducts() {
@@ -15,7 +14,7 @@ function getProducts() {
 }
 
 function getProduct(id: string) {
-    instance.get(`/products/${id}`)
+    return instance.get(`/produtos/${id}`)
 }
 
 function createProduct(product: Product) {

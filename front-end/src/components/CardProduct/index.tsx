@@ -14,7 +14,7 @@ import {
 } from './style';
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
 import ScaleRoundedIcon from '@mui/icons-material/ScaleRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { average } from 'color.js';
@@ -27,9 +27,10 @@ interface ICardProduct {
     labelButton     ?: string;
     image           ?: string;
     style           ?: React.CSSProperties;
+    onClick         ?: () => void;
 }
 
-function CardProduct({title, description, price, image, weight, labelButton, style}:ICardProduct) {
+function CardProduct({title, description, price, image, weight, onClick, labelButton, style}:ICardProduct) {
     const StyeleButton = styled(Button)({
         boxShadow: 'none',
         textTransform: 'none',
@@ -71,8 +72,9 @@ function CardProduct({title, description, price, image, weight, labelButton, sty
                     <StyeleButton 
                         variant="contained" 
                         size="small" 
-                        startIcon={<ShoppingCartRoundedIcon />}
+                        startIcon={<AddRoundedIcon />}
                         sx={ButtonStyle}
+                        onClick={onClick}
                     >
                         {labelButton}
                     </StyeleButton>

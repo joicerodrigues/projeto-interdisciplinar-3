@@ -11,6 +11,7 @@ interface InputTextProps {
     placeholder     ?: string;
     style           ?: React.CSSProperties;
     onChange        ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    type            ?: string;
     [x: string]      : any;
 }
 
@@ -44,7 +45,7 @@ const CssTextField = styled(TextField)({
     },
 });
 
-function Login({ error, messageError, label, name, value, style, onChange, placeholder, ...props }: InputTextProps) {
+function Login({ error, messageError, label, name, value, style, type, onChange, placeholder, ...props }: InputTextProps) {
     return (
         <ContainerInput>
             <CssTextField
@@ -59,6 +60,7 @@ function Login({ error, messageError, label, name, value, style, onChange, place
                 placeholder={placeholder}
                 style={Input}
                 sx={style}
+                type={type}
                 { ...props }
             />
         </ContainerInput>
