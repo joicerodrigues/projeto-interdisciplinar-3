@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import {
     ContainerLogin,
     ContentLogin,
@@ -11,13 +10,15 @@ import {
     StyleLottie
 } from "./style"
 import { useState } from 'react';
-import { validadeEmail, validadePassword } from "../../utils/validadeText";
+import { validadeEmail } from "../../utils/validadeText";
 import InputText from "../../components/InputText";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import ButtonText from "../../components/ButtonText";
 import Lottie from "lottie-react";
 import planetEarth from "../../assets/lotties/lf30_rwpu0mow.json";
-// import { login } from "../../services/Login";
+import { login } from "../../services/Login";
+import ModalSignUp from "../../components/ModalSignUp"
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
@@ -26,6 +27,14 @@ function Login() {
 
     const [password, setPassword] = useState('');
     const [errorPassword, setErrorPassword] = useState(false);
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const navigate = useNavigate();
+    const navigateToProducts = () => {
+        navigate('/products');
+    };
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { value, name } = event.target;
@@ -37,11 +46,35 @@ function Login() {
         }
 
         setPassword(value);
-        value === '' ? setErrorPassword(false) : setErrorPassword(!validadePassword(value));
+        if(value === '') {
+            setErrorPassword(false);
+        }
     };
+
+    function handleLogin() {
+        const data = {
+            "email": email,
+            "password": password
+        }
+
+        login(data).then((response) => {
+            if(response.data === 'Email ou Senha estão incorretos!') {
+                setErrorPassword(true);
+                return
+            }
+
+            navigateToProducts();
+        })
+    }
 
     return (
         <ContainerLogin>
+
+            <ModalSignUp 
+                active={open}
+                handleClose={handleClose}
+            />
+
             <ContentLogin>
                 <LottieAnimation>
                     <Lottie animationData={planetEarth} loop={false} style={StyleLottie}/>
@@ -51,7 +84,7 @@ function Login() {
                 </Title>
                 <SubTitle>
                     <p>
-                        Faça login para continuar, ou <Link href="#"> cadastre-se </Link>
+                        Faça login para continuar, ou <Link href="#" onClick={handleOpen}> cadastre-se </Link>
                     </p>
                 </SubTitle>
                 <FormControl>
@@ -61,17 +94,19 @@ function Login() {
                         messageError={errorEmail ? 'Email inválido' : ' '}
                         name="email"
                         value={email}
+                        required
                         onChange={handleChange}
                     />
 
                     <InputText
                         error={errorPassword}
                         label="Senha"
-                        messageError={errorPassword ? 'Senha inválida' : ' '}
+                        messageError={errorPassword ? 'Algo deu errado, preencha os dados corretamente...' : ' '}
                         name="password"
                         value={password}
                         onChange={handleChange}
-                        type={password}
+                        type="password"
+                        required
                         style={{ borderRadius: 5 }}
                     />
 
@@ -79,14 +114,13 @@ function Login() {
                         <ButtonPrimary
                             disabled={errorEmail || errorPassword}
                             label="Entrar"
-                            onClick={() => { }}
+                            onClick={() => handleLogin()}
                             size="medium"
                         />
-
                         <ButtonText
                             disabled={false}
                             label="Esqueci minha senha"
-                            onClick={() => { }}
+                            onClick={() => {}}
                             size="small"
                         />
                     </ContentButtons>

@@ -1,7 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import HeaderHome from "../../components/HeaderHome";
 import CardProduct from "../../components/CardProduct";
-import { ContainerProducts, ContainerSearchProducts, ContentSearchProducts, InputTextStyle, ContainerProductsList, ContetentProductsList, SubHeader, FadeInUpDiv, ContentNothingFound, NothingFound } from "./style";
+import { 
+  ContainerProducts, 
+  ContainerSearchProducts, 
+  ContentSearchProducts, 
+  InputTextStyle, 
+  ContainerProductsList, 
+  ContetentProductsList, 
+  SubHeader, FadeInUpDiv, 
+  ContentNothingFound, 
+  NothingFound 
+} from "./style";
 import InputText from "../../components/InputText";
 import ExpandableButton from "../../components/ExpandableButton";
 import InputAdornment from "@mui/material/InputAdornment";

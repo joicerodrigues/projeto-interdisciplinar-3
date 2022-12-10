@@ -55,26 +55,6 @@ function Home() {
                         />
                     </LottieScroll>
                 </ContainerHome>
-
-                <ScrollPage page={1}>
-                    <Animator animation={FadeUp}>
-                        <div style={{ height: 1000 }}>
-                            <p>
-                                Temos a missão de gerar recursos sustentáveis
-                                e proporcionar aos nossos clientes, soluções de descarte
-                                de resíduos eletrônicos de forma eficaz e segura. Com ética,
-                                trabalho em equipe, responsabilidade social e
-                                respeito ao meio ambiente.
-                            </p>
-                        </div>
-                    </Animator>
-                </ScrollPage>
-
-                <ScrollPage page={2}>
-                    <Animator animation={FadeUp}>
-                        <div style={{ height: 1000 }} />
-                    </Animator>
-                </ScrollPage>
             </ScrollContainer>
         </Container>
     );

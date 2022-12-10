@@ -7,7 +7,7 @@ interface InputTextProps {
     label           ?: string;
     messageError    ?: string;
     name            ?: string;
-    value           ?: string;
+    value           ?: any;
     placeholder     ?: string;
     style           ?: React.CSSProperties;
     onChange        ?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -32,16 +32,16 @@ const CssTextField = styled(TextField)({
         '&:hover fieldset': {
             borderRadious: 6,
         },
-        '&.Mui-focused fieldset': {           
+        '&.Mui-focused fieldset': {
             borderRadious: 6,
         },
-        '&.MuiFormHelperText-root': {
-            color: '#1976d2',
-            fontSize: 12,
-            marginTop: 0,
-            marginBottom: 0,
-        },
-        
+    },
+    '&.Mui-error': {
+        color: '#1976d2',
+        fontSize: 12,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: '-5em !important',
     },
 });
 

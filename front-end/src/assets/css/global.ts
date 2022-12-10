@@ -42,6 +42,10 @@ color: #fff;
   position: initial !important;
 }
 
+.css-1wc848c-MuiFormHelperText-root {
+  margin-left: 0 !important;
+}
+
 `;
 
 export default GlobalStyle;

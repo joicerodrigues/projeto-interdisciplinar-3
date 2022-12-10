@@ -9,5 +9,5 @@ export const ContainerInput = styled.div`
 
 export const Input = {
   width: convertToRem(400),
-  marginBottom: convertToRem(4)
+  marginBottom: '.2em'
 };

@@ -2,10 +2,10 @@ import { ButtonTextStyle } from './style';
 import Button from '@mui/material/Button';
 
 interface ButtonTextProps {
-    label: string;
-    onClick: () => void;
-    disabled: boolean;
-    size?: 'small' | 'medium' | 'large';
+    label          ?: string;
+    onClick        ?: () => void;
+    disabled       ?: boolean;
+    size           ?: 'small' | 'medium' | 'large';
 }
 
 function ButtonText({ label, onClick, disabled, size }: ButtonTextProps) {

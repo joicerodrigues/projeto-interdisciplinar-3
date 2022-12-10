@@ -14,11 +14,11 @@ export const ContainerHome = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 87vh;
   width: 90vw;
   margin: 0 auto;
   position: relative;
-  top: ${convertToRem(-30)};
+  top: ${convertToRem(10)};
 `;
 
 export const Wrapper = styled.div`
@@ -71,5 +71,5 @@ export const LottieScroll = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: ${convertToRem(120)};
+  bottom: ${convertToRem(30)};
 `;
