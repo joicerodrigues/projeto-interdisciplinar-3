@@ -20,14 +20,14 @@ import Button from '@mui/material/Button';
 import { average } from 'color.js';
 
 interface ICardProduct {
-    title           ?: string;
-    description     ?: string;
-    price           ?: string;
-    weight          ?: string;
-    labelButton     ?: string;
-    image           ?: string;
-    style           ?: React.CSSProperties;
-    onClick         ?: () => void;
+  title           ?: string;
+  description     ?: string;
+  price           ?: string;
+  weight          ?: string;
+  labelButton     ?: string;
+  image           ?: string;
+  style           ?: React.CSSProperties;
+  onClick         ?: () => void;
 }
 
 function CardProduct({title, description, price, image, weight, onClick, labelButton, style}:ICardProduct) {

@@ -30,7 +30,7 @@ function deleteProduct(id: string) {
 }
 
 function getCategoriesProducts() {
-    return instance.get('/categories')
+    return instance.get('/categoria')
 }
 
 export {

@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import convertToRem from "../../utils/convertToRem";
 import { fadeInUp } from "react-animations";
+import Background from "../../assets/img/background-home.jpg";
 
 const fadeInUpAnimation = keyframes`${fadeInUp}`;
 
@@ -8,7 +9,21 @@ export const FadeInUpDiv = styled.div`
   animation: 0.6s ${fadeInUpAnimation};
 `;
 
-export const ContainerProducts = styled.div``;
+export const ContainerProducts = styled.div`
+  &:before {
+    content: "";
+    position: absolute;
+    opacity: 0.1;
+    background-image: url(${Background});
+    background-size: cover;
+    filter: blur(50px);
+    width: 100%;
+    background-repeat: repeat-y;
+    background-position: center;
+    z-index: -1;
+    height: 180em;
+  }
+`;
 
 export const ContainerSearchProducts = styled.div`
   display: flex;

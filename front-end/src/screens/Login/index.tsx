@@ -1,3 +1,4 @@
+// import { useEffect } from 'react';
 import {
     ContainerLogin,
     ContentLogin,
@@ -16,6 +17,7 @@ import ButtonPrimary from "../../components/ButtonPrimary";
 import ButtonText from "../../components/ButtonText";
 import Lottie from "lottie-react";
 import planetEarth from "../../assets/lotties/lf30_rwpu0mow.json";
+// import { login } from "../../services/Login";
 
 function Login() {
 

@@ -18,10 +18,10 @@ export const ButtonStyle = {
   color: "#fff",
   borderRadius: "8px",
   padding: "0.7em 2em",
-  marginRight: "0.5em",
   marginTop: "2em",
   cursor: "pointer",
-  width: "100%",
+  width: "31.6em",
+  borderColor: "#6064B9 !important",
 };
 
 export const ProductContainer = styled.div`
@@ -35,7 +35,7 @@ export const ProductCarousel = styled.div`
   display: flex;
   align-self: center;
   justify-content: center;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
 `;
 
 export const ProductInformationContainer = styled.div`
@@ -43,6 +43,7 @@ export const ProductInformationContainer = styled.div`
   align-items: align-center;
   justify-content: center;
   flex-direction: column;
+  margin-left: 0.3em;
 `;
 
 export const ContentTitleProduct = styled.div`
@@ -83,7 +84,7 @@ export const ContentDescriptionProduct = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: start;
-  margin-top: 1em;
+  margin-top: 1.5em;
   margin-left: 0.7em;
 `;
 
@@ -120,7 +121,7 @@ export const Location = styled.div`
   border-radius: 8px;
   padding: 1em;
   margin-top: 1em;
-  width: 19.4em;
+  width: 19.8em;
 
   display: flex;
   align-items: flex-start;
@@ -144,7 +145,7 @@ export const Evaluation = styled.div`
   padding: 1em;
   margin-top: 1em;
   margin-left: 0.7em;
-  width: 12em;
+  width: 11em;
 
   display: flex;
   align-items: flex-start;
@@ -160,5 +161,13 @@ export const Evaluation = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-left: -0.1em;
   }
+`;
+
+export const FooterModal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5em;
 `;
